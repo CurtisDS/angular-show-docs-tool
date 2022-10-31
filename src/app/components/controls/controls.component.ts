@@ -44,8 +44,13 @@ export class ControlsComponent implements OnInit {
       this.viewstateservice.docArray = lines.map(line => new LineObj(line));
       // join the lines back and replace the docString after filtering the string
       this.viewstateservice.docString = lines.join('\n');
+
+      // update the state
+      this.viewstateservice.updateViewState(ViewState.Edit);
+    } else {
+      // delete data but dont change state since there is no docString
+      this.viewstateservice.docString = "";
+      this.viewstateservice.docArray = [];
     }
-    // update the state
-    this.viewstateservice.updateViewState(ViewState.Edit);
   }
 }
