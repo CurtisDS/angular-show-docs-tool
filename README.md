@@ -1,3 +1,7 @@
-# angular-show-docs-tool
+# Angular Show Docs Tool
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-ivy-ouebpi)
+an app to manage show docs
+
+### Screenshot
+
+![screenshot 1](https://raw.githubusercontent.com/CurtisDS/Angular-Timestamping-Tool/main/screenshot1.png)
