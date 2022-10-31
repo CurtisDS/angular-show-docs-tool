@@ -1,6 +1,7 @@
 :host() {
   display: flex;
   overflow: hidden;
+  padding: 0 7px;
 }
 
 :host(.heading) {
