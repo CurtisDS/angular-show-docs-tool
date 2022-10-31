@@ -1,0 +1,23 @@
+:host() {
+  display: block;
+}
+
+.main-row {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 0.5em;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.codebtn {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.row {
+  max-width: 1024px;
+  margin: auto;
+}

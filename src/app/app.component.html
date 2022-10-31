@@ -1,0 +1,17 @@
+<!--include a control strip-->
+<app-controls class="controls" [name]="name"></app-controls>
+<content>
+  <div *ngIf="viewState === ViewStates.Edit && viewstateservice.docArray?.length > 0; else codeView">
+    <!--if we are in Edit mode-->
+    <ng-container *ngFor="let line of viewstateservice.docArray; let i = index">
+      <app-topic [lineIndex]="i"></app-topic>
+    </ng-container>
+  </div>
+  <ng-template #codeView>
+    <!--if we are in Code mode-->
+    <mat-form-field appearance="fill" class="textareaCode">
+      <mat-label>Document</mat-label>
+      <textarea matInput rows="30" class="textareaInput" [(ngModel)]="viewstateservice.docString"></textarea>
+    </mat-form-field>
+  </ng-template>
+</content>
