@@ -27,7 +27,7 @@ export class LineObj {
     // if this is a topic remove the first character and set as title otherwise use entire line
     this.title = this.isTopic ? this._line.substring(1).trim() : this._line.trim();
     // if this is a topic set to the first character of the line
-    this.topicChar = this.isTopic ? this._line.charAt(0) : '';
+    this.topicChar = this.isTopic ? this.isSubtopic ? '∟' : '–' : '';
   }
 
   get isTopic() {
@@ -42,7 +42,7 @@ export class LineObj {
   get line() {
     let out = [];
     if(this.isTopic) {
-      out.push(this._line.charAt(0));
+      out.push(this.topicChar);
     }
     out.push(this.title);
     return out.join(' ');
