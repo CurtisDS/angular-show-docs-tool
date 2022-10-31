@@ -1,0 +1,33 @@
+
+:host() {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-content: stretch;
+  align-items: stretch;
+  row-gap: 1em;
+}
+
+content {
+  max-width: 1024px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1em;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+}
+
+.textareaInput {
+  resize: none;
+}
+
+.textareaCode.mat-form-field,
+.textareaCode.mat-form-field ::ng-deep .mat-form-field-wrapper,
+.textareaCode.mat-form-field ::ng-deep .mat-form-field-flex,
+.textareaCode.mat-form-field ::ng-deep .mat-form-field-infix,
+.textareaCode.mat-form-field ::ng-deep textarea.mat-input-element {
+  height: 100%;
+}

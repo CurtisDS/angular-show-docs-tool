@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="row">
+    <!--heading text-->
+    <h1>{{name}}</h1>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="main-row row">
+    <!--flex spacer-->
+    <span class="spacer"></span>
+    <!--view state buttons-->
+    <ng-container *ngIf="!isCodeViewState && viewstateservice.docArray?.length > 0; else codeViewControls">
+      <button mat-mini-fab color="accent" class="codebtn" title="view code" (click)="codeView()">
+        <mat-icon>code</mat-icon>
+        <!--code state-->
+      </button>
+    </ng-container>
+    <ng-template #codeViewControls>
+      <button mat-mini-fab color="accent" class="codebtn" title="hide code" (click)="editView()">
+        <mat-icon>code_off</mat-icon>
+        <!--edit state-->
+      </button>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>
