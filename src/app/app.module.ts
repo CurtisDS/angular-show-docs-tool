@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MaterialExampleModule } from '../material.module';
+import { MaterialModule } from '../material.module';
 import { ControlsComponent } from './components/controls/controls.component';
 import { TopicComponent } from './components/topic/topic.component';
 
@@ -17,7 +17,7 @@ import { TopicComponent } from './components/topic/topic.component';
     FormsModule,
     HttpClientModule,
     MatNativeDateModule,
-    MaterialExampleModule,
+    MaterialModule,
     ReactiveFormsModule ],
   declarations: [ AppComponent, TopicComponent, ControlsComponent ],
   bootstrap:    [ AppComponent ]
