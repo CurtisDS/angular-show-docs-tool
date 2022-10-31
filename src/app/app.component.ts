@@ -27,7 +27,7 @@ export class AppComponent {
   /** confirm the browser closing if there are existing topics */
   @HostListener('window:beforeunload', ['$event'])
   beforeLeaveFn = (event: any) => {
-    if(this.viewstateservice.docArray.length==0) {
+    if(typeof this.viewstateservice.docArray === "undefined" || this.viewstateservice.docArray.length==0) {
       return undefined;
     }
     let confirmationMessage = 'You may lose data if you leave. Are you sure?';
