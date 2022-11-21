@@ -23,7 +23,15 @@
 
 :host(.topic.upcoming) {
   border-radius: 5px;
+  background: #436ff06b;
+  font-size: 120%;
+}
+
+:host(.topic.subtopic.upcoming) {
+  border-radius: 5px;
   background: #3d58a817;
+  font-size: 100%;
+  color: #000000ab;
 }
 
 :host(.topic.activeIndex) {
