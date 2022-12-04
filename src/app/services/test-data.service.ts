@@ -1,3 +1,4 @@
+/** an example of the format expected for an initial doc */
 export const TEST_DATA = 
 `List of topics
 -Types of rocks
