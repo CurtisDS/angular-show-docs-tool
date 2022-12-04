@@ -34,16 +34,23 @@ export class ControlsComponent implements OnInit {
       // split the string for ever new line
       let lines = this.viewstateservice.docString.split("\n");
       // trim and replace wierd quotes
-      lines = lines.map(line => line.trim().replace(/[“”]/g,'"').replace(/[‘’]/g,"'"));
+      let trimmedLines = lines.map(line => { 
+        return {
+          original: line,
+          trimmed: line.trim().replace(/[“”]/g,'"').replace(/[‘’]/g,"'")
+         };
+      });
       // try to remove blank or otherwise empty lines
-      lines = lines.filter(line => {
-        let isTopic = StartChars.includes(line.charAt(0));
-        return line.length > 0 && !isTopic || (isTopic && line.length > 1);
+      trimmedLines = trimmedLines.filter(line => {
+        let isTopic = StartChars.includes(line.trimmed.charAt(0));
+        return line.trimmed.length > 0 && !isTopic || (isTopic && line.trimmed.length > 1);
       });
       // covert the strings to LineObj
-      this.viewstateservice.docArray = lines.map(line => new LineObj(line));
+      this.viewstateservice.docArray = trimmedLines.map(line => 
+        new LineObj(line.trimmed, this.getTabCount(line.original))
+      );
       // join the lines back and replace the docString after filtering the string
-      this.viewstateservice.docString = lines.join('\n');
+      this.viewstateservice.docString = trimmedLines.map(line => line.trimmed).join('\n');
 
       // update the state
       this.viewstateservice.updateViewState(ViewState.Edit);
@@ -52,5 +59,15 @@ export class ControlsComponent implements OnInit {
       this.viewstateservice.docString = "";
       this.viewstateservice.docArray = [];
     }
+  }
+
+  getTabCount(text: string) {
+    let count = 0;
+    let index = 0;
+    let char = text.charAt(index++);
+    while (char === "\t" || char === " ") {
+      if(char === "\t") count++;
+    }
+    return count;
   }
 }
