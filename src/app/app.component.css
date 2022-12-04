@@ -24,6 +24,36 @@ content {
   resize: none;
 }
 
+.stickyBtnDiv {
+  position: sticky;
+  top: 2em;
+  bottom: calc(1em + 60px);
+  pointer-events: none;
+  z-index: 9;
+}
+
+.stickyBtnDiv > div {
+  position: absolute;
+  width: 100%;
+  text-align: right;
+  padding: 0.5em;
+  pointer-events: all;
+}
+
+.activeIndex {
+  z-index: 10;
+  position: relative;
+}
+
+.jumpToActiveBtn {
+  opacity: 100%;
+  transition: opacity 0.1s;
+}
+
+.hideButton {
+  opacity: 0%;
+}
+
 .textareaCode.mat-form-field,
 .textareaCode.mat-form-field ::ng-deep .mat-form-field-wrapper,
 .textareaCode.mat-form-field ::ng-deep .mat-form-field-flex,

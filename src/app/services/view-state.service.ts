@@ -20,14 +20,18 @@ export class LineObj {
   public title: string;
   /** the character to denote a topic or subtopic */
   public topicChar: string;
+  /** the depth of the subtoic, will be 0 if not a subtopic */
+  public depth: number;
 
-  constructor(line: string) {
+  constructor(line: string, depth: number) {
     // save the original line
     this._line = line;
     // if this is a topic remove the first character and set as title otherwise use entire line
     this.title = this.isTopic ? this._line.substring(1).trim() : this._line.trim();
     // if this is a topic set to the first character of the line
     this.topicChar = this.isTopic ? this.isSubtopic ? '∟' : '–' : '';
+    // set the depth of the subtopic. If its not a subtopic the depth is always 0
+    this.depth = this.isSubtopic ? depth : 0;
   }
 
   get isTopic() {

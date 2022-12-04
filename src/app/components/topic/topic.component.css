@@ -1,7 +1,7 @@
 :host() {
   display: flex;
   overflow: hidden;
-  padding: 0 7px;
+  padding: 0 0.5em;
 }
 
 :host(.heading) {
@@ -21,10 +21,13 @@
   font-size: 120%;
 }
 
+:host(.topic:not(.subtopic)) {
+  font-size: 120%;
+}
+
 :host(.topic.upcoming) {
   border-radius: 5px;
   background: #436ff06b;
-  font-size: 120%;
 }
 
 :host(.topic.subtopic.upcoming) {

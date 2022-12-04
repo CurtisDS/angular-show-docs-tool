@@ -4,7 +4,23 @@
   <div *ngIf="viewState === ViewStates.Edit && viewstateservice.docArray?.length > 0; else codeView">
     <!--if we are in Edit mode-->
     <ng-container *ngFor="let line of viewstateservice.docArray; let i = index">
-      <app-topic [lineIndex]="i"></app-topic>
+      <div *ngIf="viewstateservice.activeIndex === i && line.isTopic" class="stickyBtnDiv">
+        <div>
+          <button
+            matSuffix
+            mat-mini-fab
+            color="primary"
+            (click)="jumpToActiveTopic()"
+            title="Jump To Active Topic"
+            class="jumpToActiveBtn"
+            #jumpToActiveBtn>
+            <!--include a copy button to add the text time splits to clipboard-->
+            <mat-icon>menu_open</mat-icon>
+          </button>
+        </div>
+      </div>
+      <app-topic *ngIf="viewstateservice.activeIndex === i && line.isTopic" [lineIndex]="i" #activeTopic></app-topic>
+      <app-topic *ngIf="viewstateservice.activeIndex !== i || !line.isTopic"  [lineIndex]="i"></app-topic>
     </ng-container>
   </div>
   <ng-template #codeView>
