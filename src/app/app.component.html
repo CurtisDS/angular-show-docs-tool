@@ -1,7 +1,7 @@
 <!--include a control strip-->
 <app-controls class="controls" [name]="name"></app-controls>
 <content>
-  <div *ngIf="viewState === ViewStates.Edit && viewstateservice.docArray?.length > 0; else codeView">
+  <div class="topicList" *ngIf="viewState === ViewStates.Edit && viewstateservice.docArray?.length > 0; else codeView">
     <!--if we are in Edit mode-->
     <ng-container *ngFor="let line of viewstateservice.docArray; let i = index">
       <div *ngIf="viewstateservice.activeIndex === i && line.isTopic" class="stickyBtnDiv">
