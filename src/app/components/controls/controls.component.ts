@@ -64,10 +64,10 @@ export class ControlsComponent implements OnInit {
   getTabCount(text: string) {
     let count = 0;
     let index = 0;
-    let char = text.charAt(index++);
-    while (char === "\t" || char === " ") {
+    do {
+      var char = text.charAt(index++);
       if(char === "\t") count++;
-    }
+    } while (char === "\t" || char === " ")
     return count;
   }
 }
