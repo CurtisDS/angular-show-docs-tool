@@ -49,7 +49,7 @@ export class LineObj {
       out.push(this.topicChar);
     }
     out.push(this.title);
-    return out.join(' ');
+    return '\t'.repeat(this.depth) + out.join(' ');
   }
 }
 

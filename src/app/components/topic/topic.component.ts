@@ -23,6 +23,7 @@ export class TopicComponent implements OnInit {
   @HostBinding('class.subtopic') subtopicClass: boolean = false;
   @HostBinding('class.heading') headingClass: boolean = false;
   @HostBinding('attr.topicchar') startChar: string = '';
+  @HostBinding('style.padding-left') paddingLeft: string = '';
 
   @HostBinding('class.activeIndex') get currentIndex(): boolean {
     return this.viewservice.activeIndex === this.lineIndex;
@@ -48,6 +49,7 @@ export class TopicComponent implements OnInit {
   /** initialize classes and attributes */
   ngOnInit() {
     this.lineObj = this.viewservice.docArray[this.lineIndex];
+    this.paddingLeft = this.lineObj.depth > 0 ? this.lineObj.depth + 'em' : '0.5em';
     this.topicClass = this.lineObj.isTopic;
     this.subtopicClass = this.lineObj.isSubtopic;
     this.headingClass = !this.lineObj.isTopic && !this.lineObj.isSubtopic;
