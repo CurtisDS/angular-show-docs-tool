@@ -8,25 +8,36 @@ import { ViewState, ViewStateService } from './services/view-state.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  readonly DEBUG = true;
+  /** a debug flag for various operations */
+  readonly DEBUG = false;
 
   constructor(public viewstateservice: ViewStateService) {
+    // if we are in debug mode use the test data from the test data service for the document
     viewstateservice.docString = this.DEBUG ? TEST_DATA : "";
   }
 
+  /** an observer that watches for an element to come into the view */
   private observer:IntersectionObserver;
+  /** the current active topic */
   private activeTopic: ElementRef;
+  /** the button element that will scroll the user back to the active topic */
   private jumpToActiveTopicBtn: ElementRef;
 
+  /** sets the active topic based on the view child and connects an observer to watch if it goes on/off screen */
   @ViewChild('activeTopic', { read: ElementRef }) set activeTopicViewChild(topic: ElementRef) {
+    // set the topic
     this.activeTopic = topic;
+    // remove any old active observers
     this.observer.disconnect();
     if(this.activeTopic) {
+      // if isnt undefined add the native element to the observer
       this.observer.observe(this.activeTopic.nativeElement);
     }
   }
 
+  /** set the jump to active button element based on the view child */
   @ViewChild('jumpToActiveBtn', { read: ElementRef }) set jumpToActiveTopicBtnViewChild(btn: ElementRef) {
+    // set the button
     this.jumpToActiveTopicBtn = btn;
   }
 
