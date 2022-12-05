@@ -6,10 +6,10 @@ export enum ViewState {
 }
 
 /** an array of characters that denote either a main topic or a subtopic */
-export const StartChars = ['-','–','—','−','⸺','—','∟'];
+export const StartChars = ['-','–','—','−','⸺','—','∟','+'];
 
 /** an array of characters that denote a subtopic */
-export const SubTitleChars = ['∟'];
+export const SubTitleChars = ['∟','+'];
 
 export class LineObj {
 
