@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
   private activeTopic: ElementRef;
   /** the button element that will scroll the user back to the active topic */
   private jumpToActiveTopicBtn: ElementRef;
+  /** the text area element used for the document manual edit */
+  private docInputTextArea: ElementRef;
 
   /** sets the active topic based on the view child and connects an observer to watch if it goes on/off screen */
   @ViewChild('activeTopic', { read: ElementRef }) set activeTopicViewChild(topic: ElementRef) {
@@ -39,6 +41,33 @@ export class AppComponent implements OnInit {
   @ViewChild('jumpToActiveBtn', { read: ElementRef }) set jumpToActiveTopicBtnViewChild(btn: ElementRef) {
     // set the button
     this.jumpToActiveTopicBtn = btn;
+  }
+
+  /** set the text area from view child */
+  @ViewChild('docInput', { read: ElementRef }) set docInputTextAreaViewChild(textarea: ElementRef) {
+    // set the textarea
+    this.docInputTextArea = textarea;
+    if(this.docInputTextArea) {
+      // get the native element
+      let el = this.docInputTextArea.nativeElement;
+      // add event listener to text area
+      el.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Tab") {
+          // tab was pressed, prevent default an insert \t to field
+          e.preventDefault();
+          // get caret position/selection
+          let val = el.value;
+          let start = el.selectionStart;
+          let end = el.selectionEnd;
+
+          // set textarea value to: text before caret + tab + text after caret
+          el.value = val.substring(0, start) + '\t' + val.substring(end);
+
+          // put caret at right position again
+          el.selectionStart = el.selectionEnd = start + 1;
+        }
+      });
+    }
   }
 
   /** the heading of the app */
