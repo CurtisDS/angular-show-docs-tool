@@ -31,7 +31,7 @@
     <!--if we are in Code mode-->
     <mat-form-field appearance="fill" class="textareaCode">
       <mat-label>Document</mat-label>
-      <textarea matInput class="textareaInput" [(ngModel)]="viewstateservice.docString" #docInput></textarea>
+      <textarea matInput convertCase class="textareaInput" [(ngModel)]="viewstateservice.docString" (ngModelChange)="save(3000)" (blur)="save(0)" #docInput></textarea>
     </mat-form-field>
   </ng-template>
 </content>

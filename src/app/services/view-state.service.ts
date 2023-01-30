@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { DEBUG } from '../app.module';
+import { TEST_DATA } from './test-data.service';
 
 export enum ViewState {
   Edit = 1,
@@ -61,23 +63,43 @@ export class ViewStateService {
   /** the {@link ViewState} */
   private _viewstate: ViewState;
 
+  /** Get the number of leading tabs */
+  private getTabCount(text: string) {
+    let count = 0;
+    let index = 0;
+    do {
+      var char = text.charAt(index++);
+      if(char === "\t") count++;
+    } while (char === "\t" || char === " ")
+    return count;
+  }
+
   /** the text representation of the doc */
   docString: string;
+
   /** the doc parsed into objects for each topic */
   docArray: LineObj[];
 
   /** the last copied topic index */
   activeIndex = 0;
 
-  constructor() { 
+  constructor() {
+    // if we are in debug mode use the test data from the test data service for the document
+    this.docString = DEBUG ? TEST_DATA : "";
+
     // initialize the default view state and sort state
     this._viewstate = ViewState.Edit;
 
     // if the browser supports local storage
     if (typeof(Storage) !== "undefined") {
-       // check local storage to see if there was a previous view state and use that if it exists
-      if (localStorage.lastShowDocViewState)
+      // check local storage to see if there was a previous view state and use that if it exists
+      if (localStorage.lastShowDocViewState) {
         this._viewstate = ViewState[ViewState[localStorage.lastShowDocViewState]];
+      }
+      // check local storage to see if there was a previous docstring and use that if it exists
+      if (localStorage.lastShowDoc) {
+        this.docString = localStorage.lastShowDoc;
+      }
     }
   }
 
@@ -95,5 +117,42 @@ export class ViewStateService {
       // save the view state in local storage so the next time the page loads the setting will be consistant
       localStorage.setItem("lastShowDocViewState", this._viewstate as any);
     }
+  }
+
+  /** save the doc string to local storage */
+  saveDocStringToLocalStorage() {
+    // if the browser supports local storage
+    if (typeof(Storage) !== "undefined") {
+      // save the show doc incase browser crashes
+      localStorage.setItem("lastShowDoc", this.docString);
+    }
+  }
+
+  /** Convert and save the {@link docArray} back into a {@link docString} */
+  updateDocString() {
+    this.docString = this.docArray.map(lineObj => lineObj.line).join('\n');
+  }
+
+  /** Convert a {@link docString} into a {@link docArray} and save it */
+  generateDocArray() {
+    // replace wierd quotes, convert 3 spaces to tabs and split the string for ever new line
+    let lines = this.docString.replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/   /g,"\t").split("\n");
+    // try to remove blank or otherwise empty lines
+    lines = lines.filter(line => {
+      let trimmed = line.trim();
+      let isTopic = StartChars.includes(trimmed.charAt(0));
+      return trimmed.length > 0 && !isTopic || (isTopic && trimmed.length > 1);
+    });
+    // covert the strings to LineObj
+    this.docArray = lines.map(line => 
+      new LineObj(line.trim(), this.getTabCount(line))
+    );
+    // join the lines back and replace the docString after filtering the string
+    this.updateDocString();
+  }
+
+  clearDoc() {
+    this.docString = "";
+    this.docArray = [];
   }
 }

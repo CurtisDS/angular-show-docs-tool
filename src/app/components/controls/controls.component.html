@@ -1,23 +1,38 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="row">
-    <!--heading text-->
-    <h1>{{name}}</h1>
+    <!-- heading text -->
+    <h1>{{ name }}</h1>
   </mat-toolbar-row>
   <mat-toolbar-row class="main-row row">
-    <!--flex spacer-->
+    <!-- flex spacer -->
     <span class="spacer"></span>
-    <!--view state buttons-->
+    <!-- info button -->
+    <button mat-mini-fab color="none" title="view shortcuts" (click)="showInfo = !showInfo">
+      <mat-icon>keyboard_hide</mat-icon>
+    </button>
+    <!-- view state buttons -->
     <ng-container *ngIf="!isCodeViewState && viewstateservice.docArray?.length > 0; else codeViewControls">
       <button mat-mini-fab color="accent" class="codebtn" title="view code" (click)="codeView()">
         <mat-icon>code</mat-icon>
-        <!--code state-->
+        <!-- code state -->
       </button>
     </ng-container>
     <ng-template #codeViewControls>
       <button mat-mini-fab color="accent" class="codebtn" title="hide code" (click)="editView()">
         <mat-icon>code_off</mat-icon>
-        <!--edit state-->
+        <!-- edit state -->
       </button>
     </ng-template>
+  </mat-toolbar-row>  
+  <mat-toolbar-row class="row hidden-row" *ngIf="showInfo">
+    <!-- flex spacer -->
+    <span class="spacer"></span>
+    <!-- shortcuts -->
+    <h4>Shortcuts:</h4>
+    <ul class="shortcuts">
+      <li><kbd>[</kbd><span>Convert selected text to lower case</span></li>
+      <li><kbd>]</kbd><span>Convert selected text to Title Case</span></li>
+      <li><kbd>/</kbd><span>Convert selected text to UPPER CASE</span></li>
+    </ul>
   </mat-toolbar-row>
 </mat-toolbar>

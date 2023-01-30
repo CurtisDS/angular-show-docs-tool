@@ -80,4 +80,10 @@ export class TopicComponent implements OnInit {
     // run the attempts to add the text to the clipboard
     attempt();
   }
+
+  /** save the docstring to localstorage */
+  save() {
+    this.viewservice.updateDocString();
+    this.viewservice.saveDocStringToLocalStorage();
+  }
 }

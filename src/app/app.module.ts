@@ -9,6 +9,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from '../material.module';
 import { ControlsComponent } from './components/controls/controls.component';
 import { TopicComponent } from './components/topic/topic.component';
+import { ConvertCaseDirective } from './directives/convert-case.directive';
+
+/** a debug flag for various operations */
+export const DEBUG = false;
 
 @NgModule({
   imports: [ 
@@ -19,7 +23,7 @@ import { TopicComponent } from './components/topic/topic.component';
     MatNativeDateModule,
     MaterialModule,
     ReactiveFormsModule ],
-  declarations: [ AppComponent, TopicComponent, ControlsComponent ],
+  declarations: [ AppComponent, TopicComponent, ControlsComponent, ConvertCaseDirective ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

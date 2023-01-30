@@ -1,5 +1,4 @@
 import { Component, ElementRef, HostListener, ViewChild, OnInit } from '@angular/core';
-import { TEST_DATA } from './services/test-data.service';
 import { ViewState, ViewStateService } from './services/view-state.service';
 
 @Component({
@@ -8,13 +7,7 @@ import { ViewState, ViewStateService } from './services/view-state.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  /** a debug flag for various operations */
-  readonly DEBUG = false;
-
-  constructor(public viewstateservice: ViewStateService) {
-    // if we are in debug mode use the test data from the test data service for the document
-    viewstateservice.docString = this.DEBUG ? TEST_DATA : "";
-  }
+  constructor(public viewstateservice: ViewStateService) {}
 
   /** an observer that watches for an element to come into the view */
   private observer:IntersectionObserver;
@@ -24,6 +17,8 @@ export class AppComponent implements OnInit {
   private jumpToActiveTopicBtn: ElementRef;
   /** the text area element used for the document manual edit */
   private docInputTextArea: ElementRef;
+  /** a timer to be used for saving after a number of seconds of inactivity */
+  private saveTimer: NodeJS.Timeout;
 
   /** sets the active topic based on the view child and connects an observer to watch if it goes on/off screen */
   @ViewChild('activeTopic', { read: ElementRef }) set activeTopicViewChild(topic: ElementRef) {
@@ -119,7 +114,18 @@ export class AppComponent implements OnInit {
     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
   }
 
+  /** scroll to active topic */
   jumpToActiveTopic() {
     this.activeTopic.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /** save docstring to localstorage after set number of milliseconds. Interupts previous calls
+   * @param time_ms - the time in milliseconds to set the timer for
+   */
+  save(time_ms: number) {
+    clearTimeout(this.saveTimer);
+    this.saveTimer = setTimeout(() => {
+      this.viewstateservice.saveDocStringToLocalStorage();
+    }, time_ms);
   }
 }
