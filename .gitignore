@@ -6,4 +6,5 @@
 /.firebaserc
 /firebase.json
 /.firebase
+/.vscode
 tsconfig.app.json
