@@ -32,12 +32,12 @@ export class ControlsComponent implements OnInit {
   editView() {
     if(this.viewstateservice.docString.trim() != "") {
       // split the string for ever new line
-      let lines = this.viewstateservice.docString.split("\n");
+      let lines = this.viewstateservice.docString.replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/   /g,"\t").split("\n");
       // trim and replace wierd quotes
       let trimmedLines = lines.map(line => { 
         return {
           original: line,
-          trimmed: line.trim().replace(/[“”]/g,'"').replace(/[‘’]/g,"'")
+          trimmed: line.trim()
          };
       });
       // try to remove blank or otherwise empty lines
